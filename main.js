@@ -23,9 +23,6 @@ return element;
 }
 
 
-
-
-
 // Build up TIles
 
 for (let i = 0; i < tileCount; i++) {
@@ -37,6 +34,6 @@ const tile = buildTile(color);
 colorsPickList.splice(randomIndex,1); // will make sure  
 // the randomized array doesnt choose the same color more than 2 times
 console.log(color);
-document.body.appendChild(tile);
+tileContainer.appendChild(tile);
 
 }
