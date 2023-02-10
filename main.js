@@ -15,6 +15,7 @@ const element = document.createElement("div");
 
 element.classList.add("tile");
 element.setAttribute("data-color", color);
+element.setAttribute("data-revealed", "false");
 
 element.addEventListener("click", () => {
     if (awaitingEndOfMove) {
@@ -32,8 +33,19 @@ element.addEventListener("click", () => {
     const colorToMatch = activeTile.getAttribute("data-color");
 
     if (colorToMatch === color) {
+
+        activeTile.setAttribute("data-revealed", "true");
+        element.setAttribute("data-revealed", "true");
+
         activeTile = null;
         awaitingEndOfMove = false;
+        revealedCount += 2;
+
+        if (revealedCount === tileCount) {
+            alert("You win! Refresh page to play again");
+        }
+
+        return;
     }
 
     awaitingEndOfMove = true;
