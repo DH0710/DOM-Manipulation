@@ -7,7 +7,7 @@ const tileCount = colorsPickList.length;
 
 let revealedCount = 0;
 let activeTile = null; // refers to the tile the user just clicked on
-let awaitngEndOfMove = false; 
+let awaitingEndOfMove = false; 
 
 // builds a new tile element then return it 
 buildTile = (color) => {
@@ -15,6 +15,46 @@ const element = document.createElement("div");
 
 element.classList.add("tile");
 element.setAttribute("data-color", color);
+
+element.addEventListener("click", () => {
+    if (awaitingEndOfMove) {
+        return;
+    }
+
+    element.style.backgroundColor = color;
+
+    if(!activeTile) {
+        activeTile = element;
+
+        return;
+    }
+
+    const colorToMatch = activeTile.getAttribute("data-color");
+
+    if (colorToMatch === color) {
+        activeTile = null;
+        awaitingEndOfMove = false;
+    }
+
+    awaitingEndOfMove = true;
+
+    setTimeout(() => {
+        element.style.backgroundColor = null;
+        activeTile.style.backgroundColor = null;
+
+        awaitingEndOfMove = false;
+        activeTile = null;
+
+
+    }, 1000);
+
+
+    console.log(activeTile);
+
+});
+
+
+
 
 return element;
 
